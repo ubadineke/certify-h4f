@@ -1,15 +1,15 @@
 {
     "attributes": [
         {
-            "trait_type": "Breed",
-            "value": "Maltipoo"
+            "trait_type": "UI",
+            "value": "purple"
         },
         {
-            "trait_type": "Eye color",
-            "value": "Mocha"
+            "trait_type": "Font",
+            "value": "Times New Roman "
         }
     ],
-    "description": "The world's most adorable and sensitive pup.",
-    "image": "https://gateway.pinata.cloud/ipfs/QmVyTbBDLcRReth33JKToWp6p5ZHaeuGAq1nJs3rfZdPQi",
-    "name": "STARRRE"
+    "description": "A screen for my application(Certify).",
+    "image": "https://gateway.pinata.cloud/ipfs/Qmb99WfzKv82Fe9Viire7iLc5QbnRBDzFbTnVqGZTusn7K",
+    "name": "CERTIFY SCREEN "
 }

@@ -7,6 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract MyNFT is ERC721URIStorage, Ownable {
     uint256 private _tokenIds;
 
+        // Event to emit when a new token is minted
+    event TokenMinted(uint256 tokenId, address recipient);
+
     constructor(address initialOwner) ERC721("MyNFT", "NFT") Ownable(initialOwner) {}
 
     function mintNFT(address recipient, string memory tokenURI)
@@ -19,6 +22,8 @@ contract MyNFT is ERC721URIStorage, Ownable {
         uint256 newItemId = _tokenIds;
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
+
+        emit TokenMinted(newItemId, recipient);
 
         return newItemId;
     }

@@ -12,19 +12,40 @@ const signer = new ethers.Wallet(privateKey, provider);
 
 // Get contract ABI and address
 const abi = contract.abi;
-const contractAddress = '0xba469a04f52f63C259ADFFFc22276b4d992D0e64';
+// new 0xc454D708fF7d5AFba56BfE050Fef0AA5B1daf6bD
+// old 0xba469a04f52f63C259ADFFFc22276b4d992D0e64
+const contractAddress = '0x574CFDD4109eB6b95Ab14124107E5c2dc1541965';
 
 // Create a contract instance
 const myNftContract = new ethers.Contract(contractAddress, abi, signer);
 
 // Get the NFT Metadata IPFS URL
-const tokenUri = 'https://gateway.pinata.cloud/ipfs/QmWutWsvEhZnLK1rcyG9i3r232kPnYz2sE1TYR8eAFr8pL';
+const tokenUri = 'https://gateway.pinata.cloud/ipfs/QmRetBMUomyTw1aNsiMbHdFMZEkZ2kMxGAkriJWyvjjGQv';
 
 // Call mintNFT function
 const mintNFT = async () => {
     let nftTxn = await myNftContract.mintNFT(signer.address, tokenUri);
-    await nftTxn.wait();
-    console.log(`NFT Minted! Check it out at: https://sepolia.etherscan.io/tx/${nftTxn.hash}`);
+    const receipt = await nftTxn.wait();
+
+    // Parse the logs to find our event
+    const iface = new ethers.Interface(contract.abi);
+    const mintEvent = receipt.logs.find((log) => {
+        try {
+            const parsed = iface.parseLog(log);
+            return parsed.name === 'TokenMinted';
+        } catch {
+            return false;
+        }
+    });
+
+    // Get the token ID from the event
+    const parsedEvent = iface.parseLog(mintEvent);
+    const tokenId = parsedEvent.args[0]; // tokenId is the first argument in our event
+
+    console.log(`NFT Minted! Check it out at: https://sepolia-blockscout.lisk.com/tx/${nftTxn.hash}`);
+    console.log(
+        `NFT URL! See it at: https://sepolia-blockscout.lisk.com/token/${receipt.to}/instance/${tokenId.toString()}`
+    );
 };
 
 mintNFT()
