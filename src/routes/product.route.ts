@@ -5,7 +5,6 @@ import { uploadSingle } from '../middlewares/formidable';
 
 const router = Router();
 
-// router.use(Auth.protect);
-
-router.post('/register-product', uploadSingle, Product.register);
+router.get('/verify-product', Product.verify);
+router.post('/register-product', Auth.protect, uploadSingle, Product.register);
 export default router;

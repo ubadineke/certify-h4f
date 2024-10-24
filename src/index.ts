@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import connectToDatabase from './config/db';
 import authRouter from './routes/auth.route';
 import productRouter from './routes/product.route';
+import Auth from './controllers/auth.controller';
 
 dotenv.config();
 

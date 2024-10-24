@@ -3,12 +3,17 @@ import { pinFileToIPFS } from '../utils/uploadFileToPinata';
 import { Request, Response } from 'express';
 import { createMetadataJson } from '../utils/createMetadataJson';
 import fs from 'fs';
-import { ethers } from 'ethers';
 import uploadOnchain from '../utils/uploadOnchain';
+import qr from 'qrcode';
+import Qr from '../models/qr.model';
+import checkNFTExists from '../utils/checkIfNftExists';
 
 export default class Product {
     @Controller()
     public static async register(req: Request, res: Response) {
+        // console.log(11);
+        // console.log(req.files);
+        console.log(req.user);
         if (!req.files) return res.status(400).json('No picture attached');
         const { name, description, sn } = req.fields;
         const picture = req.files.image;
@@ -28,13 +33,39 @@ export default class Product {
 
         //upload to the blockchain.
         const result = await uploadOnchain(nftMetadata);
+        const qrCodeDataURI = await qr.toDataURL(JSON.stringify(result.nftUrl));
+        console.log(qrCodeDataURI);
+
+        await Qr.create({
+            manufacturer: req.user,
+            link: qrCodeDataURI,
+        });
 
         res.status(201).json({
             transaction: `NFT Minted! Check it out at: ${result.transactionUrl}`,
             nft: `NFT URL! See it at: ${result.nftUrl}`,
+            qrCodeDataURI,
         });
     }
 
     @Controller()
-    public static async verify(req: Request, res: Response) {}
+    public static async verify(req: Request, res: Response) {
+        const { url } = req.body;
+        if (!url) return res.status(400).json('URL not provided');
+
+        const contractAddress = '0x574CFDD4109eB6b95Ab14124107E5c2dc1541965';
+
+        //check if the contract is correct
+        //check if there is a link to the blockchain explorer
+        const result = await checkNFTExists(contractAddress, url);
+
+        if (!result) {
+            return res.status(404).json({ message: 'Invalid QR Code' });
+        }
+
+        res.status(200).json({
+            message: 'Verified',
+            nftUrl: url,
+        });
+    }
 }

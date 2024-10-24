@@ -63,7 +63,7 @@ export default class Auth {
         });
 
         // //3) Check if user still exists
-        const currentUser = await Manufacturer.findById(decoded._id);
+        const currentUser = await Manufacturer.findById(decoded.id);
         if (!currentUser) {
             return res
                 .status(401)
