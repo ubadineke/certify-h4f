@@ -1,11 +1,43 @@
 {
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.22.14"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^5.1.0",
-    "dotenv": "^16.4.5",
-    "ethers": "^6.13.4"
-  }
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+        "@types/bcryptjs": "^2.4.6",
+        "@types/cors": "^2.8.17",
+        "@types/express-formidable": "^1.2.3",
+        "@types/jsonwebtoken": "^9.0.7",
+        "@types/node-fetch": "^2.6.11",
+        "@types/validator": "^13.12.2",
+        "hardhat": "^2.22.14"
+    },
+    "dependencies": {
+        "@openzeppelin/contracts": "^5.1.0",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "axios": "^1.7.7",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "ethers": "^6.13.4",
+        "express": "^4.21.1",
+        "express-formidable": "^1.2.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.7.2",
+        "node-fetch": "^3.3.2",
+        "tsx": "^4.19.1",
+        "validator": "^13.12.0"
+    },
+    "name": "certify-new",
+    "version": "1.0.0",
+    "description": "This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.",
+    "main": "src/index.ts",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "start": "node --import tsx src/index.ts",
+        "build": "tsc",
+        "dev": "node --watch --import tsx src/index.ts"
+    },
+    "author": "",
+    "license": "ISC"
 }
