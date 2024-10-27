@@ -17,9 +17,6 @@ export default async function checkNFTExists(deployedContractAddress: string, ur
         const urlParts = url.split('/');
         const contractAddress = urlParts[4]; // Contract address
 
-        // console.log(contractAddress);
-        // console.log(deployedContractAddress);
-
         const tokenId = urlParts[6]; // Token ID (e.g., 13)
 
         // Compare the extracted contract address with the expected contract address
@@ -33,13 +30,13 @@ export default async function checkNFTExists(deployedContractAddress: string, ur
 
         // Call ownerOf to check if the token exists (throws if it doesn't exist)
         const owner = await nftContract.ownerOf(tokenId);
-        console.log(owner);
+
         // If ownerOf returns an address, the NFT exists
         console.log(`NFT exists, owned by: ${owner}`);
         return true;
     } catch (error) {
-        return false;
         // If an error is thrown, the token doesn't exist
+        return false;
         throw new Error('NFT does not exists.');
     }
 }
