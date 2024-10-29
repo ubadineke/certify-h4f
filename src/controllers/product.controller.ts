@@ -13,13 +13,16 @@ export default class Product {
     public static async register(req: Request, res: Response) {
         // console.log(11);
         // console.log(req.files);
-        console.log(req.user);
+        // console.log(req.user);
         if (!req.files) return res.status(400).json('No picture attached');
         const { name, description, sn } = req.fields;
         const picture = req.files.image;
+        if (!picture) return res.status(400).json('Image not attached');
+        console.log(picture);
 
         //upload/pin image and retrieve ipfs hash
         const uploadedImage = await pinFileToIPFS(picture);
+        console.log(uploadedImage);
         const imageIpfsHash = uploadedImage.IpfsHash;
 
         //create metadata in json

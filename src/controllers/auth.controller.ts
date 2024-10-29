@@ -78,6 +78,7 @@ export default class Auth {
     @Controller()
     public static async getUserInfo(req: Request, res: Response) {
         let user = req.user;
+        if(!user)
         res.status(200).json(user);
     }
 }

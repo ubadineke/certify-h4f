@@ -8,6 +8,7 @@ export async function pinFileToIPFS(file) {
         const formData = new FormData();
 
         // Append the image file to the form data (from formidable's parsed file)
+        console.log(file.path);
         formData.append('file', fs.createReadStream(file.path), file.name);
 
         const pinataMetadata = JSON.stringify({
