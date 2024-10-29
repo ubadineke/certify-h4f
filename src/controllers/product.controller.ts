@@ -18,11 +18,10 @@ export default class Product {
         const { name, description, sn } = req.fields;
         const picture = req.files.image;
         if (!picture) return res.status(400).json('Image not attached');
-        console.log(picture);
+        if (picture.type === null || picture.type == '') return res.status(400).json('Picture not attached');
 
         //upload/pin image and retrieve ipfs hash
         const uploadedImage = await pinFileToIPFS(picture);
-        console.log(uploadedImage);
         const imageIpfsHash = uploadedImage.IpfsHash;
 
         //create metadata in json
