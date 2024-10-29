@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import connectToDatabase from './config/db';
 import authRouter from './routes/auth.route';
 import productRouter from './routes/product.route';
-import Auth from './controllers/auth.controller';
 
 dotenv.config();
 
@@ -17,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(formidableMiddleware());
 
-app.use('/api', authRouter);
 app.use('/api', productRouter);
+app.use('/api', authRouter);
 connectToDatabase();
 
 app.listen(PORT, async () => {
