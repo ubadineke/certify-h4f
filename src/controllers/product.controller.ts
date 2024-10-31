@@ -53,7 +53,9 @@ export default class Product {
     @Controller()
     public static async verify(req: Request, res: Response) {
         const { url } = req.body;
+        console.log(1, req.body);
         if (!url) return res.status(400).json('URL not provided');
+        console.log(url);
 
         const contractAddress = '0x574CFDD4109eB6b95Ab14124107E5c2dc1541965';
 
