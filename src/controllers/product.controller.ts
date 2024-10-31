@@ -63,6 +63,7 @@ export default class Product {
         //check if there is a link to the blockchain explorer
         const result = await checkNFTExists(contractAddress, url);
 
+        console.log(3, result);
         if (!result) {
             return res.status(404).json({ message: 'Invalid QR Code' });
         }
